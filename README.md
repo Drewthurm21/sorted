@@ -7,12 +7,13 @@
 - **Target Audience:**
   - The target audience includes computer science students, coding bootcamp participants, and anyone interested in learning and mastering algorithms. The project will also serve as a valuable addition to your professional portfolio.
 
-# Technology Stack:
+# Technologies:
 
 - **Front-End:**
 
   - Next.js with TypeScript will be used for building the front-end of the website.
-  - Tailwind CSS and SaSS will be employed for styling and design.
+  - Tailwind and SaSS modules will be employed for styling and design.
+  - headlessUI will provide some menu components for ease of use.
   - Framer Motion will be used to enhance the user experience with animations and transitions.
 
 - **Back-End:**
