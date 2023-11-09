@@ -1,9 +1,9 @@
 export function generateBubbleSortAnimations(arr: number[]): number[][] {
   const arrayCopy = [...arr];
   const bubbleSortAnimations = []
-  let swapped;
+  let swapped = true;
 
-  while (!swapped) {
+  while (swapped) {
     swapped = false;
     for (let i = 0; i < arrayCopy.length - 1; i++) {
       if (arrayCopy[i] > arrayCopy[i + 1]) {
@@ -19,3 +19,4 @@ export function generateBubbleSortAnimations(arr: number[]): number[][] {
   return bubbleSortAnimations;
 };
 
+ 

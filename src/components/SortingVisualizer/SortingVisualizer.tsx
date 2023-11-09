@@ -2,7 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { generateBubbleSortAnimations } from "./SortingAlgorithms";
-import { generateNewRandomArray } from "@/utilities";
+
+function generateRandomNumber(max: number): number {
+  return Math.floor(Math.random() * max) + 1;
+}
+
+function generateNewRandomArray(length: number): number[] {
+  return Array.from({ length }, () => generateRandomNumber(500));
+}
 
 const handleFrame = (frameNumber: number, col1: any, col2: any) => {
   let c1h = col1.style.height;
@@ -11,10 +18,10 @@ const handleFrame = (frameNumber: number, col1: any, col2: any) => {
   let el2 = col2.firstChild;
   let text = el1.firstChild.innerText;
 
-  if (frameNumber === 1) {
+  if (frameNumber % 3 === 1) {
     el1.style.backgroundColor = "red";
     el2.style.backgroundColor = "purple";
-  } else if (frameNumber === 2) {
+  } else if (frameNumber % 3 === 2) {
     el1.style.backgroundColor = "green";
     el2.style.backgroundColor = "green";
     el1.firstChild.innerText = el2.firstChild.innerText;
@@ -29,17 +36,13 @@ const handleFrame = (frameNumber: number, col1: any, col2: any) => {
 
 export default function SortingVisualizer() {
   const [sortingInProgress, setSortingInProgress] = useState<boolean>(false);
-  const [animationInProgress, setAnimationInProgress] =
-    useState<boolean>(false);
   const [sortingArray, setSortingArray] = useState<number[]>(
     generateNewRandomArray(20)
   );
-  const [timeoutIds, setTimeoutIds] = useState<NodeJS.Timeout[]>([]);
 
   useEffect(() => {
-    if (!sortingInProgress || animationInProgress) return;
+    if (!sortingInProgress) return;
     const animationFrames = generateBubbleSortAnimations(sortingArray);
-
     for (let i = 0; i < animationFrames.length; i++) {
       setTimeout(() => {
         const arrayElements = document.querySelectorAll(".array-element-node");
@@ -48,11 +51,10 @@ export default function SortingVisualizer() {
         const col2 = arrayElements[pos2];
         for (let idx = 1; idx <= 3; idx++) {
           setTimeout(() => {
-            setAnimationInProgress((prev) => (prev = true));
             handleFrame(idx, col1, col2);
-          }, idx * 400);
+          }, idx * 15);
         }
-      }, i * 1200);
+      }, i * 45);
     }
   }, [sortingInProgress]);
 
@@ -92,16 +94,6 @@ export default function SortingVisualizer() {
         }}
       >
         Sort
-      </button>
-      <button
-        onClick={() => {
-          for (let id of timeoutIds) {
-            console.log(id);
-            clearTimeout(id);
-          }
-        }}
-      >
-        Stop
       </button>
     </>
   );
