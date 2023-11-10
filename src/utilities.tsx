@@ -14,6 +14,10 @@ export const generateNewListData = (
   );
 };
 
+export const swapListValues = (arr: number[], a: number, b: number) => {
+  [arr[a], arr[b]] = [arr[b], arr[a]];
+};
+
 export const generateBubbleSortSteps = (array: any[]) => {
   console.log(array);
   const arr = [...array];
@@ -25,9 +29,7 @@ export const generateBubbleSortSteps = (array: any[]) => {
     for (let i = 0; i < arr.length - 1; i++) {
       if (arr[i].value > arr[i + 1].value) {
         swappedPositions.push([i, i + 1]);
-        let temp = arr[i];
-        arr[i] = arr[i + 1];
-        arr[i + 1] = temp;
+        swapListValues(arr, i, i + 1);
         swappedElements = true;
       }
     }
