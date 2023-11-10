@@ -2,6 +2,8 @@
 
 import { motion, LayoutGroup } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { SingleArrayColumn } from "./SingleArrayColumn";
+import { GlowingButton } from "../GlowingButton";
 import {
   generateNewListData,
   generateBubbleSortSteps,
@@ -9,19 +11,22 @@ import {
 } from "@/utilities";
 
 const ANIMATION_SPEED = 0.5;
+const LIST_LENGTH = 10;
 
 export const UpdatedVisualizer = () => {
-  const [arrayValues, setArrayValues] = useState(generateNewListData(30));
+  const [arrayValues, setArrayValues] = useState(
+    generateNewListData(LIST_LENGTH)
+  );
   const [columns, setColumns] = useState(createColumns(arrayValues));
   const [sortingInProgress, setSortingInProgress] = useState(false);
 
   const timeoutRef = useRef<any>(null);
-  const animationFrames = useRef<number[][]>([]);
+  const animationFrames = useRef<any>([]);
 
   useEffect(() => {
     if (!sortingInProgress) return;
     if (!animationFrames.current.length)
-      animationFrames.current = generateBubbleSortSteps(arrayValues);
+      animationFrames.current = sortingAlgos["bubbleSort"](arrayValues);
     animateFrames();
     return () => clearTimeout(timeoutRef.current);
   }, [arrayValues, columns, sortingInProgress]);
@@ -42,7 +47,7 @@ export const UpdatedVisualizer = () => {
   };
 
   const generateNewColumns = () => {
-    let newListValues = generateNewListData(10);
+    let newListValues = generateNewListData(LIST_LENGTH);
     animationFrames.current = generateBubbleSortSteps(newListValues);
     setSortingInProgress(false);
     setArrayValues(newListValues);
@@ -56,40 +61,21 @@ export const UpdatedVisualizer = () => {
       </div>
 
       <motion.div className="flex w-1/2 h-full justify-evenly pt-12">
-        <button onClick={() => setSortingInProgress(true)}>Sort</button>
-        <button onClick={generateNewColumns}>New List</button>
+        <GlowingButton
+          buttonText="Sort!"
+          handleClick={() => setSortingInProgress(true)}
+        />
+        <GlowingButton
+          buttonText="Reset"
+          handleClick={() => generateNewColumns()}
+        />
       </motion.div>
     </div>
   );
 };
 
-type SingleColumnProps = {
-  key: number;
-  value: number;
-};
-
-const SingleColumn = ({ key, value }: SingleColumnProps) => {
-  return (
-    <motion.div
-      key={key}
-      layout
-      className={`text-center min-w-[30px]`}
-      transition={{ duration: ANIMATION_SPEED, type: "spring" }}
-    >
-      <motion.div layout style={{ y: -20 }}>
-        {value}
-      </motion.div>
-      <motion.div
-        layout
-        style={{
-          backgroundColor: "blue",
-          height: `${value}px`,
-        }}
-      />
-    </motion.div>
-  );
-};
-
 const createColumns = (array: { id: number; value: number }[]) => {
-  return array.map((col) => <SingleColumn key={col.id} value={col.value} />);
+  return array.map((col) => (
+    <SingleArrayColumn key={col.id} value={col.value} speed={ANIMATION_SPEED} />
+  ));
 };

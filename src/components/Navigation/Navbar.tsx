@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function NavbarWrapper() {
   return (
-    <div className="absolute top-0 w-full h-20 justify-between align-center bg-indigo-700">
+    <div className="absolute top-0 w-full h-20 justify-between align-center bg-background-light">
       <Navbar />
     </div>
   );
@@ -32,17 +32,17 @@ function Navbar() {
 const navbarItems = [
   {
     icon: <GiBubbles />,
-    baseUrl: "/sort/bubble",
+    baseUrl: "/bubbleSort",
     label: "Bubble Sort",
   },
   {
     icon: <AiOutlineMergeCells />,
-    baseUrl: "/sort/merge",
+    baseUrl: "/merge",
     label: "Merge Sort",
   },
   {
     icon: <AiOutlineInsertRowRight />,
-    baseUrl: "/sort/insertion",
+    baseUrl: "/insertion",
     label: "Insertion Sort",
   },
 ];
@@ -76,7 +76,7 @@ function NavbarItem({ icon, label, baseUrl }: NavbarItemProps) {
         <Menu.Items className="absolute mt-2 w-52 left-0 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <Menu.Item>
             {({ active }) => (
-              <Link href={`${baseUrl}/vis`}>
+              <Link href={`${baseUrl}/lesson`}>
                 <button
                   className={`${
                     active ? "bg-emerald-400 text-white" : "text-gray-900"
@@ -92,7 +92,7 @@ function NavbarItem({ icon, label, baseUrl }: NavbarItemProps) {
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (
-              <Link href={`${baseUrl}/lesson`}>
+              <Link href={`${baseUrl}/vis`}>
                 <button
                   className={`${
                     active ? "bg-emerald-400 text-white" : "text-gray-900"
