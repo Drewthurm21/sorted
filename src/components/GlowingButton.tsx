@@ -9,7 +9,6 @@ export const GlowingButton = ({
   handleClick,
   buttonText,
 }: GlowingButtonProps) => {
-  console.log(buttonText);
   return (
     <div className="grid min-h-[200px] place-content-center bg-transparent p-4">
       <GradientShadowButton handleClick={handleClick} buttonText={buttonText} />

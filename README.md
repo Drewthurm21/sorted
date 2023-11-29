@@ -50,7 +50,7 @@
 
 - **Array Sorting Visualizations:**
 
-  - The first phase will focus on implementing a few fundamental array sorting algorithms and creating write-ups for each, then implementing visualizations for each sorting algorithm. The first algorithms we implement will be Bubble Sort, Merge Sort, Insertion Sort, and Quick Sort.
+  - The first phase will focus on implementing a few fundamental array sorting algorithms and creating write-ups for each, then implementing visualizations for each sorting algorithm. The first algorithms implemented will be Bubble Sort, Merge Sort, Insertion Sort, and Quick Sort.
 
 - **Pathfinding Visualizer (Future):**
 
@@ -75,7 +75,7 @@
 
 <details>
 
-<summary> The first iteration of the actual visualizer for each of the algos is tentatively done. First I will outline some of my challenges and decision making processes from the first visualizer. Inside are some details about my thought processes while building, notes on drawbacks or roadblocks, and how I decided to solve these issues. </summary>
+<summary> The first iteration of the actual visualizer for each of the algos is tentatively done. Inside are some details about my thought processes while building, notes on drawbacks or roadblocks, and how I decided to solve these issues. </summary>
 
 - I started by creating functions to generate a list of random numbers, and employed useState to store the generated "sortingArray", and mapped over these values in the jsx to create a column for each.
 
@@ -105,9 +105,9 @@
             })}
           </div>
 
-  - [x] While testing I noticed column labels tend to overlap and look ugly when the list is above 30-40 elements. I will only show labels for
+  - [x] While testing I noticed column labels tend to overlap and look ugly when the list is above 30-40 elements.
 
-- With the ability to create a random array of numbers and render them on the screen, the next step would be to implement a version of bubble sort that keeps track of the steps it took to sort the array. For this step I modified traditional bubbleSort to create an auxiliary array called animationFrames. The plan is to push a copy of the sortingArray to animationFrames on each iteration of the inner loop. This would give me a snapshot of the sortingArray's state after every comparison. I could use these captured array states to illustrate the steps taken to sort our input array.
+- With the ability to create a random array of numbers and render them on the screen, the next step would be to implement a version of bubble sort that keeps track of the steps it took to sort the array. For this step I modified traditional bubbleSort to create an auxiliary array called animationFrames. The plan is to push a copy of the sortingArray to animationFrames on each iteration of the inner loop. This would give me a snapshot of the sortingArray's state after every comparison. I could use these captured array states to illustrate the steps taken to sort the input array.
 
   - <details>
       <summary> bubbleSort code: </summary>
@@ -201,7 +201,7 @@
         ```
     </details>
 
-- Lastly we made a few simple buttons. One to start the sorting visualization, and one to create / render a new list of values. So. The creation is complete. It works but, even aside from sloppy first-attempt code, there are drawbacks and things that I would like to refactor. Here are some of the things I'd like to improve on the next iteration:
+- Lastly, I made a few simple buttons. One to start the sorting visualization, and one to create / render a new list of values. So. The creation is complete. It works but, even aside from sloppy first-attempt code, there are drawbacks and things that I would like to refactor. Here are some of the things I'd like to improve on the next iteration:
 
   1. The visualization is kind of jarring. It gets the point across, but it's not pretty.
      - _a._ the columns don't move horizontally, they just swap sizes.
@@ -212,3 +212,75 @@
      - _a._ if a new list is generated during animation, the column values update but the animations continue.
 
   </details>
+
+<details>
+
+<summary> The second iteration of the visualizer is mostly complete. In this iteration of the component I wanted to improve the animation of array columns as they were being sorted. I also wanted to address the rendering strategy. Inside you'll find some details about the process. </summary>
+
+## Problem 1 - Once animations start, they cannot be stopped.
+
+- This is because all of the timeouts are placed onto the message queue synchronously. So even after the array values are changed, or sortingInProgress is toggled to false, handleFrame continues to be called as the timeouts resolve. My first response was to store each timeout id as it was being created in a ref, then clear them using a loop if the "cancel" button was clicked, but I was unsuccessful.
+
+- After a bit more thought I decide to look at this from a different angle and try a recursive approach. Here's what I came up with.
+
+  - <details>
+    <summary> the plan:</summary>
+
+    1. use useRef to store:
+
+       - animationFramesRef: the array of animation steps taken
+       - timeoutRef: the ID of the current pending setTimeout
+
+    2. use useState to store:
+
+       - arrayValues: the list values to be mapped and sorted
+       - columns: html elements created by mapping over arrayValues
+       - sortingInProgress: used to toggle sorting on or off
+
+    3. create a useEffect that will:
+
+       - call a recursive function, "animateFrames", if sortingInProgress is true
+       - return a cleanup function calls clearTimeout on timeoutRef
+
+    4. animateFrames will:
+
+       - create a new timeout whose callback will:
+         - remove one frame from the animationFramesRef
+         - call a helper function, "swapColumns", passing the removed animation frame
+       - update timeoutRef with the new ID
+
+    5. swapColumns will:
+
+       - use the animation frame to swap the elements of "arrayValues"
+       - call setArrayValues with the newly mutated array triggering a rerender, and starting the process over
+       </details>
+
+  - <details> 
+    <summary>the code:</summary>
+
+    ```javascript
+    useEffect(() => {
+      if (!sortingInProgress) return;
+      if (!animationFramesRef.current.length)
+        animationFramesRef.current = sortingAlgos["bubbleSort"](arrayValues);
+      animateFrames();
+      return () => clearTimeout(timeoutRef.current);
+    }, [arrayValues, columns, sortingInProgress]);
+
+    const animateFrames = () => {
+      timeoutRef.current = setTimeout(() => {
+        if (animationFramesRef.current.length)
+          swapColumns(...animationFramesRef.current.pop());
+      }, ANIMATION_SPEED * 1000);
+    };
+
+    const swapColumns = (...pos: number[]) => {
+      let [a, b] = pos;
+      [arrayValues[a], arrayValues[b]] = [arrayValues[b], arrayValues[a]];
+      setColumns(createColumns(arrayValues));
+    };
+    ```
+
+    </details>
+
+- Users can pause sorting any time, and if the array is reset during sorting then animations stop automatically. Additionally I feel like this code is quite a bit cleaner so I'm happy with the results, for now.

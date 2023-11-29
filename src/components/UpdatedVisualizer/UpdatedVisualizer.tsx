@@ -21,36 +21,32 @@ export const UpdatedVisualizer = () => {
   const [sortingInProgress, setSortingInProgress] = useState(false);
 
   const timeoutRef = useRef<any>(null);
-  const animationFrames = useRef<any>([]);
+  const animationFramesRef = useRef<any>([]);
 
   useEffect(() => {
     if (!sortingInProgress) return;
-    if (!animationFrames.current.length)
-      animationFrames.current = sortingAlgos["bubbleSort"](arrayValues);
+    if (!animationFramesRef.current.length)
+      animationFramesRef.current = sortingAlgos["bubbleSort"](arrayValues);
     animateFrames();
     return () => clearTimeout(timeoutRef.current);
   }, [arrayValues, columns, sortingInProgress]);
 
   const animateFrames = () => {
     timeoutRef.current = setTimeout(() => {
-      if (animationFrames.current.length)
-        //change color / border before swap
-        swapColumns(...animationFrames.current.pop());
+      if (animationFramesRef.current.length)
+        swapColumns(...animationFramesRef.current.pop());
     }, ANIMATION_SPEED * 1000);
   };
 
   const swapColumns = (...pos: number[]) => {
-    [arrayValues[pos[0]], arrayValues[pos[1]]] = [
-      arrayValues[pos[1]],
-      arrayValues[pos[0]],
-    ];
-    // swap colors back here before we reset / remap cols
+    let [a, b] = pos;
+    [arrayValues[a], arrayValues[b]] = [arrayValues[b], arrayValues[a]];
     setColumns(createColumns(arrayValues));
   };
 
   const generateNewColumns = () => {
     let newListValues = generateNewListData(LIST_LENGTH);
-    animationFrames.current = generateBubbleSortSteps(newListValues);
+    animationFramesRef.current = generateBubbleSortSteps(newListValues);
     setSortingInProgress(false);
     setArrayValues(newListValues);
     setColumns(createColumns(newListValues));
@@ -66,6 +62,10 @@ export const UpdatedVisualizer = () => {
         <GlowingButton
           buttonText="Sort!"
           handleClick={() => setSortingInProgress(true)}
+        />
+        <GlowingButton
+          buttonText="Pause"
+          handleClick={() => setSortingInProgress(false)}
         />
         <GlowingButton
           buttonText="Reset"
