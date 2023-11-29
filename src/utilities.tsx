@@ -34,8 +34,7 @@ export const generateBubbleSortSteps = (array: any[]) => {
       }
     }
   }
-
-  console.log(swappedPositions, "<-- swaps");
+  
   return swappedPositions.reverse();
 };
 

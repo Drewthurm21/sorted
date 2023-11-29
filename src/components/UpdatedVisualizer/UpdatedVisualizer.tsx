@@ -34,6 +34,7 @@ export const UpdatedVisualizer = () => {
   const animateFrames = () => {
     timeoutRef.current = setTimeout(() => {
       if (animationFrames.current.length)
+        //change color / border before swap
         swapColumns(...animationFrames.current.pop());
     }, ANIMATION_SPEED * 1000);
   };
@@ -43,6 +44,7 @@ export const UpdatedVisualizer = () => {
       arrayValues[pos[1]],
       arrayValues[pos[0]],
     ];
+    // swap colors back here before we reset / remap cols
     setColumns(createColumns(arrayValues));
   };
 
