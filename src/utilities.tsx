@@ -19,7 +19,6 @@ export const swapListValues = (arr: number[], a: number, b: number) => {
 };
 
 export const generateBubbleSortSteps = (array: any[]) => {
-  console.log(array);
   const arr = [...array];
   const swappedPositions: number[][] = [];
   let swappedElements = true;
@@ -34,7 +33,7 @@ export const generateBubbleSortSteps = (array: any[]) => {
       }
     }
   }
-  
+
   return swappedPositions.reverse();
 };
 

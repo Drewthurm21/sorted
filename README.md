@@ -201,12 +201,12 @@
         ```
     </details>
 
-- Lastly, I made a few simple buttons. One to start the sorting visualization, and one to create / render a new list of values. So. The creation is complete. It works but, even aside from sloppy first-attempt code, there are drawbacks and things that I would like to refactor. Here are some of the things I'd like to improve on the next iteration:
+- Lastly, I made a few simple buttons. One to start the sorting visualization, and one to create / render a new list of values. So. The creation is complete. It works but, even aside from sloppy first-attempt code, there are drawbacks and things that I would like to refactor. Here's what I'd like to address in the next iteration:
 
   1. The visualization is kind of jarring. It gets the point across, but it's not pretty.
      - _a._ the columns don't move horizontally, they just swap sizes.
      - _b._ since there are no transitions the changes happen instantly.
-     - _c._ faster animation speeds make this look like "blur of color, then done" - not the desired effect & useless for teaching
+     - _c._ faster animation speeds make this look like a blur of colors, then it's done - not the desired effect
   2. Once animations start, they cannot be stopped.
      - _b._ it is not possible to pause, rewind or reset back to the original list order.
      - _a._ if a new list is generated during animation, the column values update but the animations continue.
@@ -215,13 +215,76 @@
 
 <details>
 
-<summary> The second iteration of the visualizer is mostly complete. In this iteration of the component I wanted to improve the animation of array columns as they were being sorted. I also wanted to address the rendering strategy. Inside you'll find some details about the process. </summary>
+<summary> The second iteration of the visualizer is mostly complete. In this iteration of the component I wanted to improve the animation of array columns as they were being sorted. I also wanted to address the issues I've found with the architecture, noted at the end of the previous post. Inside you'll find some details about the process. </summary>
 
-## Problem 1 - Once animations start, they cannot be stopped.
+## Problem 1 - The visualization is jarring. It gets the point across, but it's not pretty.
+
+- The colors and sizes change in 3 sequential steps for each swap, but each step happens instantly... and there's no movement. This is because I'm using regular dom manipulation without any transitions to "animate" the swaps. It's one thing to instantly change two columns' sizes and colors, implying we've made a swap - but I want the columns to actually trade places in front of the user. I needed to rethink my methodology for making a swap. Here are the changes I decided to make:
+
+  - <details>
+    <summary> the plan:</summary>
+
+    1. Create a function that will literally swap two elements, instead of updating the columns' styles using vanilla dom manipulation.
+    2. Refactor the single column component to be motion.divs inside of a LayoutGroup.
+    3. Add a key to each column so framer-motion can keep track of its position.
+    4. Swap elements in arrayValues and update columns using the new values.
+    5. Framer-motion will handle the columns' animation/movement inside the LayoutGroup.
+
+       - This works because: - React's diffing algorithm recognizes that 'columns' still has all the same elements, just in different positions, so it does not call createElement. Then, because they're not rebuilt, framer-motion will recognize the elements in the LayoutGroup are no longer in the correct places. - Finally framer-motion will animate/translateX the columns to their proper new positions in the rendered layout, effectively illustrating the swap.
+       </details>
+
+  - <details>
+    <summary> the code:</summary>
+
+    ```javascript
+    const SingleArrayColumn = ({ key, value, speed }: SingleColumnProps) => {
+      return (
+        <motion.div
+          key={key}
+          layout
+          className={`text-center min-w-[30px]`}
+          transition={{ duration: speed, type: "spring" }}
+        >
+          <motion.div layout className="text-emerald-400" style={{ y: -20 }}>
+            {value}
+          </motion.div>
+          <motion.div
+            layout
+            className="bg-violet-600"
+            style={{
+              height: `${value}px`,
+            }}
+          />
+        </motion.div>
+      );
+    };
+    ```
+
+    ```javascript
+    const createColumns = (array: { id: number, value: number }[]) => {
+      return array.map((col) => (
+        <SingleArrayColumn
+          key={col.id}
+          value={col.value}
+          speed={ANIMATION_SPEED}
+        />
+      ));
+    };
+
+    const swapColumns = (...pos: number[]) => {
+      let [a, b] = pos;
+      [arrayValues[a], arrayValues[b]] = [arrayValues[b], arrayValues[a]];
+      setColumns(createColumns(arrayValues));
+    };
+    ```
+
+    </details>
+
+## Problem 2 - Once animations start, they cannot be stopped.
 
 - This is because all of the timeouts are placed onto the message queue synchronously. So even after the array values are changed, or sortingInProgress is toggled to false, handleFrame continues to be called as the timeouts resolve. My first response was to store each timeout id as it was being created in a ref, then clear them using a loop if the "cancel" button was clicked, but I was unsuccessful.
 
-- After a bit more thought I decide to look at this from a different angle and try a recursive approach. Here's what I came up with.
+- I decide to look at this from a different angle and try a recursive approach. Here's what I came up with.
 
   - <details>
     <summary> the plan:</summary>
@@ -283,4 +346,4 @@
 
     </details>
 
-- Users can pause sorting any time, and if the array is reset during sorting then animations stop automatically. Additionally I feel like this code is quite a bit cleaner so I'm happy with the results, for now.
+- Users can pause sorting any time, and if the array is reset during sorting then animations stop automatically. Additionally I feel like this code is quite a bit cleaner so I'm happy with the results, for now. The next improvements I'd like to make here would be adding << and >> while sorting is paused. These buttons would "step" through the sort 1 change at a time.

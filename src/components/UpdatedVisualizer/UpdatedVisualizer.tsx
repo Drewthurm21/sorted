@@ -4,19 +4,16 @@ import { motion, LayoutGroup } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { SingleArrayColumn } from "./SingleArrayColumn";
 import { GlowingButton } from "../GlowingButton";
-import {
-  generateNewListData,
-  generateBubbleSortSteps,
-  sortingAlgos,
-} from "@/utilities";
+import { generateNewListData, sortingAlgos } from "@/utilities";
 
 const ANIMATION_SPEED = 0.5;
 const LIST_LENGTH = 10;
 
 export const UpdatedVisualizer = () => {
-  const [arrayValues, setArrayValues] = useState(
+  const [initialValues, setInitialValues] = useState(
     generateNewListData(LIST_LENGTH)
   );
+  const [arrayValues, setArrayValues] = useState([...initialValues]);
   const [columns, setColumns] = useState(createColumns(arrayValues));
   const [sortingInProgress, setSortingInProgress] = useState(false);
 
@@ -46,10 +43,19 @@ export const UpdatedVisualizer = () => {
 
   const generateNewColumns = () => {
     let newListValues = generateNewListData(LIST_LENGTH);
-    animationFramesRef.current = generateBubbleSortSteps(newListValues);
+    animationFramesRef.current = [];
     setSortingInProgress(false);
-    setArrayValues(newListValues);
+    setInitialValues(newListValues);
+    setArrayValues([...newListValues]);
     setColumns(createColumns(newListValues));
+  };
+
+  const handleReset = () => {
+    clearTimeout(timeoutRef.current);
+    animationFramesRef.current = [];
+    setSortingInProgress(false);
+    setArrayValues([...initialValues]);
+    setColumns(createColumns(initialValues));
   };
 
   return (
@@ -68,7 +74,11 @@ export const UpdatedVisualizer = () => {
           handleClick={() => setSortingInProgress(false)}
         />
         <GlowingButton
-          buttonText="Reset"
+          buttonText="Reset List"
+          handleClick={() => handleReset()}
+        />
+        <GlowingButton
+          buttonText="New List"
           handleClick={() => generateNewColumns()}
         />
       </motion.div>
