@@ -22,8 +22,8 @@ const handleFrame = (frameNumber: number, col1: any, col2: any) => {
     el1.style.backgroundColor = "red";
     el2.style.backgroundColor = "purple";
   } else if (frameNumber % 3 === 2) {
-    el1.style.backgroundColor = "green";
-    el2.style.backgroundColor = "green";
+    el1.style.backgroundColor = "purple";
+    el2.style.backgroundColor = "red";
     el1.firstChild.innerText = el2.firstChild.innerText;
     el2.firstChild.innerText = text;
     col1.style.height = c2h;
@@ -63,16 +63,11 @@ export default function SortingVisualizer() {
       <div className="flex gap-4 h-1/2 w-full justify-center items-end">
         {sortingArray.map((value: number, idx: number, arr: number[]) => {
           return (
-            <div
-              className="array-element-node"
-              style={{
-                height: value,
-              }}
-            >
+            <div className="array-element-node" style={{ height: value }}>
               <ArrayElementNode
                 key={idx}
                 label={arr.length < 30 ? `${value}` : ""}
-                color={"bg-blue-500"}
+                color={"bg-blue"}
               />
             </div>
           );
@@ -104,7 +99,7 @@ function ArrayElementNode({ color, label }: { color: string; label: string }) {
     <div
       className={`flex h-full w-3 justify-center items-end text-xs ${color}`}
     >
-      <div className="translate-y-6 -rotate-45">{label}</div>
+      <div className="translate-y-6 -rotate-45 text-white">{label}</div>
     </div>
   );
 }

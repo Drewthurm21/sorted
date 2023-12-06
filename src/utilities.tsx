@@ -3,13 +3,13 @@ export const generateRandomNumber = (max: number): number => {
 };
 
 export const generateRandomNumberList = (length: number) => {
-  return Array.from({ length }, () => generateRandomNumber(500));
+  return Array.from({ length }, () => generateRandomNumber(1000));
 };
 
 export const generateNewListData = (
   length: number
 ): { id: number; value: number }[] => {
-  return Array.from({ length }, () => generateRandomNumber(500)).map(
+  return Array.from({ length }, () => generateRandomNumber(1000)).map(
     (val, i) => ({ id: i + 1, value: val })
   );
 };
@@ -19,7 +19,6 @@ export const swapListValues = (arr: number[], a: number, b: number) => {
 };
 
 export const generateBubbleSortSteps = (array: any[]) => {
-  console.log(array);
   const arr = [...array];
   const swappedPositions: number[][] = [];
   let swappedElements = true;
@@ -35,7 +34,6 @@ export const generateBubbleSortSteps = (array: any[]) => {
     }
   }
 
-  console.log(swappedPositions, "<-- swaps");
   return swappedPositions.reverse();
 };
 

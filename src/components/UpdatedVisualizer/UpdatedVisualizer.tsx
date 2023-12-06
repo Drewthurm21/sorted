@@ -4,54 +4,58 @@ import { motion, LayoutGroup } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { SingleArrayColumn } from "./SingleArrayColumn";
 import { GlowingButton } from "../GlowingButton";
-import {
-  generateNewListData,
-  generateBubbleSortSteps,
-  sortingAlgos,
-} from "@/utilities";
+import { generateNewListData, sortingAlgos } from "@/utilities";
 
 const ANIMATION_SPEED = 0.5;
 const LIST_LENGTH = 10;
 
 export const UpdatedVisualizer = () => {
-  const [arrayValues, setArrayValues] = useState(
+  const [initialValues, setInitialValues] = useState(
     generateNewListData(LIST_LENGTH)
   );
+  const [arrayValues, setArrayValues] = useState([...initialValues]);
   const [columns, setColumns] = useState(createColumns(arrayValues));
   const [sortingInProgress, setSortingInProgress] = useState(false);
 
   const timeoutRef = useRef<any>(null);
-  const animationFrames = useRef<any>([]);
+  const animationFramesRef = useRef<any>([]);
 
   useEffect(() => {
     if (!sortingInProgress) return;
-    if (!animationFrames.current.length)
-      animationFrames.current = sortingAlgos["bubbleSort"](arrayValues);
+    if (!animationFramesRef.current.length)
+      animationFramesRef.current = sortingAlgos["bubbleSort"](arrayValues);
     animateFrames();
     return () => clearTimeout(timeoutRef.current);
   }, [arrayValues, columns, sortingInProgress]);
 
   const animateFrames = () => {
     timeoutRef.current = setTimeout(() => {
-      if (animationFrames.current.length)
-        swapColumns(...animationFrames.current.pop());
+      if (animationFramesRef.current.length)
+        swapColumns(...animationFramesRef.current.pop());
     }, ANIMATION_SPEED * 1000);
   };
 
   const swapColumns = (...pos: number[]) => {
-    [arrayValues[pos[0]], arrayValues[pos[1]]] = [
-      arrayValues[pos[1]],
-      arrayValues[pos[0]],
-    ];
+    let [a, b] = pos;
+    [arrayValues[a], arrayValues[b]] = [arrayValues[b], arrayValues[a]];
     setColumns(createColumns(arrayValues));
   };
 
   const generateNewColumns = () => {
     let newListValues = generateNewListData(LIST_LENGTH);
-    animationFrames.current = generateBubbleSortSteps(newListValues);
+    animationFramesRef.current = [];
     setSortingInProgress(false);
-    setArrayValues(newListValues);
+    setInitialValues(newListValues);
+    setArrayValues([...newListValues]);
     setColumns(createColumns(newListValues));
+  };
+
+  const handleReset = () => {
+    clearTimeout(timeoutRef.current);
+    animationFramesRef.current = [];
+    setSortingInProgress(false);
+    setArrayValues([...initialValues]);
+    setColumns(createColumns(initialValues));
   };
 
   return (
@@ -66,7 +70,15 @@ export const UpdatedVisualizer = () => {
           handleClick={() => setSortingInProgress(true)}
         />
         <GlowingButton
-          buttonText="Reset"
+          buttonText="Pause"
+          handleClick={() => setSortingInProgress(false)}
+        />
+        <GlowingButton
+          buttonText="Reset List"
+          handleClick={() => handleReset()}
+        />
+        <GlowingButton
+          buttonText="New List"
           handleClick={() => generateNewColumns()}
         />
       </motion.div>

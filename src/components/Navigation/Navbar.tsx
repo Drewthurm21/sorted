@@ -32,17 +32,17 @@ function Navbar() {
 const navbarItems = [
   {
     icon: <GiBubbles />,
-    baseUrl: "/bubbleSort",
+    baseUrl: "bubbleSort",
     label: "Bubble Sort",
   },
   {
     icon: <AiOutlineMergeCells />,
-    baseUrl: "/merge",
+    baseUrl: "merge",
     label: "Merge Sort",
   },
   {
     icon: <AiOutlineInsertRowRight />,
-    baseUrl: "/insertion",
+    baseUrl: "insertion",
     label: "Insertion Sort",
   },
 ];
@@ -76,7 +76,7 @@ function NavbarItem({ icon, label, baseUrl }: NavbarItemProps) {
         <Menu.Items className="absolute mt-2 w-52 left-0 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <Menu.Item>
             {({ active }) => (
-              <Link href={`${baseUrl}/lesson`}>
+              <Link href={`/lesson/${baseUrl}`}>
                 <button
                   className={`${
                     active ? "bg-emerald-400 text-white" : "text-gray-900"
@@ -92,7 +92,7 @@ function NavbarItem({ icon, label, baseUrl }: NavbarItemProps) {
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (
-              <Link href={`${baseUrl}/vis`}>
+              <Link href={`/visualizer/${baseUrl}`}>
                 <button
                   className={`${
                     active ? "bg-emerald-400 text-white" : "text-gray-900"
