@@ -3,13 +3,13 @@ export const generateRandomNumber = (max: number): number => {
 };
 
 export const generateRandomNumberList = (length: number) => {
-  return Array.from({ length }, () => generateRandomNumber(500));
+  return Array.from({ length }, () => generateRandomNumber(1000));
 };
 
 export const generateNewListData = (
   length: number
 ): { id: number; value: number }[] => {
-  return Array.from({ length }, () => generateRandomNumber(500)).map(
+  return Array.from({ length }, () => generateRandomNumber(1000)).map(
     (val, i) => ({ id: i + 1, value: val })
   );
 };

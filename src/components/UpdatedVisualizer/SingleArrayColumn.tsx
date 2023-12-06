@@ -21,7 +21,7 @@ export const SingleArrayColumn = ({ key, value, speed }: SingleColumnProps) => {
         layout
         className="bg-violet-600"
         style={{
-          height: `${value}px`,
+          height: `${value / 2}px`,
         }}
       />
     </motion.div>

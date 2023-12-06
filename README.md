@@ -346,4 +346,5 @@
 
     </details>
 
-- Users can pause sorting any time, and if the array is reset during sorting then animations stop automatically. Additionally I feel like this code is quite a bit cleaner so I'm happy with the results, for now. The next improvements I'd like to make here would be adding << and >> while sorting is paused. These buttons would "step" through the sort 1 change at a time.
+- Users can pause or continue sorting at will, they can reset the columns back to their original positions to watch the same list being sorted again, and if the user generates a new array during sorting then the animations stop automatically. Additionally I feel like this code is quite a bit cleaner so I'm happy with the results, for now.
+- The next improvements I'd like to make here would be adding << and >> while sorting is paused. These buttons would "step" through the sorting operations 1 frame at a time.
