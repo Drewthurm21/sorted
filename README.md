@@ -94,7 +94,7 @@
           <div className="flex gap-4 h-1/2 w-full justify-center items-end">
             {sortingArray.map((value: number, idx: number, arr: number[]) => {
               return (
-                <div className="array-element-node" style={{ height: value }}>
+                <div className="array-element-node" key={value} style={{ height: value }}>
                   <ArrayElementNode
                     key={idx}
                     label={arr.length < 30 ? ${value} : ""}

@@ -23,7 +23,9 @@ export default function RootLayout({
         <div className="h-screen">
           <div className="flex mt-20">
             <SidebarWrapper />
-            {children}
+            <div className="bg-slate-800 border-white border-dotted border-2 w-full">
+              {children}
+            </div>
           </div>
         </div>
       </body>

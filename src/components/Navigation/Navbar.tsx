@@ -1,5 +1,5 @@
 "use client";
-import { ReactElement, Fragment } from "react";
+import { useEffect, useState, ReactElement, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { CgChevronRight } from "react-icons/cg";
 import { GiBubbles } from "react-icons/gi";
@@ -15,14 +15,27 @@ export default function NavbarWrapper() {
 }
 
 function Navbar() {
+  const [blinker, setBlinker] = useState(true); //state to hold the blinking text
+
+  useEffect(() => {
+    //set a timeout that will add or remove the "hidden" class from the span every 500ms
+    let blinkerInterval = setInterval(() => {
+      setBlinker(!blinker);
+    }, 500);
+
+    return () => clearInterval(blinkerInterval);
+  }, [blinker]);
+
   return (
     <div className="flex h-full justify-between">
-      <div className="flex w-60 justify-evenly items-center text-white text-bold text-2xl">
-        Sorted_
-      </div>
+      <Link href={"/"}>
+        <div className="flex w-60 text-white p-6 text-bold text-2xl">
+          Sorted{blinker ? "_" : ""}
+        </div>
+      </Link>
       <div className="flex w-1/2 mr-20 justify-evenly items-center">
         {navbarItems.map((item) => (
-          <NavbarItem {...item} />
+          <NavbarItem key={item.label} {...item} />
         ))}
       </div>
     </div>

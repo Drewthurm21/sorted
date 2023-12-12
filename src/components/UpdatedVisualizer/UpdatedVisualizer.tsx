@@ -20,14 +20,6 @@ export const UpdatedVisualizer = () => {
   const timeoutRef = useRef<any>(null);
   const animationFramesRef = useRef<any>([]);
 
-  useEffect(() => {
-    if (!sortingInProgress) return;
-    if (!animationFramesRef.current.length)
-      animationFramesRef.current = sortingAlgos["bubbleSort"](arrayValues);
-    animateFrames();
-    return () => clearTimeout(timeoutRef.current);
-  }, [arrayValues, columns, sortingInProgress]);
-
   const animateFrames = () => {
     timeoutRef.current = setTimeout(() => {
       if (animationFramesRef.current.length)
@@ -58,12 +50,19 @@ export const UpdatedVisualizer = () => {
     setColumns(createColumns(initialValues));
   };
 
+  useEffect(() => {
+    if (!sortingInProgress) return;
+    if (!animationFramesRef.current.length)
+      animationFramesRef.current = sortingAlgos["bubbleSort"](arrayValues);
+    animateFrames();
+    return () => clearTimeout(timeoutRef.current);
+  }, [animateFrames, arrayValues, columns, sortingInProgress]);
+
   return (
     <div className="flex flex-col h-1/2 w-full justify-evenly items-center gap-8">
       <div className="flex flex-row h-full w-full items-end justify-evenly px-4">
         <LayoutGroup>{columns}</LayoutGroup>
       </div>
-
       <motion.div className="flex w-1/2 h-full justify-evenly pt-12">
         <GlowingButton
           buttonText="Sort!"
