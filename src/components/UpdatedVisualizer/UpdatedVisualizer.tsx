@@ -1,7 +1,7 @@
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, LayoutGroup } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
 import { SingleArrayColumn } from "./SingleArrayColumn";
 import { GlowingButton } from "../GlowingButton";
 import { generateNewListData, sortingAlgos } from "@/utilities";
@@ -20,12 +20,12 @@ export const UpdatedVisualizer = () => {
   const timeoutRef = useRef<any>(null);
   const animationFramesRef = useRef<any>([]);
 
-  const animateFrames = () => {
+  const animateFrames = useCallback(() => {
     timeoutRef.current = setTimeout(() => {
       if (animationFramesRef.current.length)
         swapColumns(...animationFramesRef.current.pop());
     }, ANIMATION_SPEED * 1000);
-  };
+  }, [animationFramesRef.current]);
 
   const swapColumns = (...pos: number[]) => {
     let [a, b] = pos;
