@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} overflow-hidden`}>
+      <body className={`${inter.className} overflow-hidden bg-slate-800`}>
         <NavbarWrapper />
         <div className="h-screen overflow-y-scroll">
           <div className="flex mt-20">
