@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { bubbleSortSteps, walkthroughSteps } from "./bubbleSortLessonData";
 
 const BubbleSortArticle: React.FC = () => {
@@ -167,11 +168,16 @@ const BubbleSortArticle: React.FC = () => {
       </p>
 
       <h2 className="text-2xl font-bold mt-8">Conclusion</h2>
-      <p className="text-lg leading-relaxed">
+      <p className="text-lg leading-relaxed mb-20">
         In conclusion, while Bubble Sort is a simple algorithm, it&apos;s not
         the most efficient for large datasets. Understanding its inner workings
         can provide valuable insights into the basics of sorting algorithms.
       </p>
+
+      <div className="flex flex-col items-center">
+        <p className="text-lg leading-relaxed">Check it out in the</p>
+        <Link href="/visualizer/bubblesort">visualizer!</Link>
+      </div>
     </div>
   );
 };
