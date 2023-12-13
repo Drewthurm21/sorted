@@ -23,19 +23,24 @@ body {
   color: white;
 }
 
-.blue {
-  background-color: blue;
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-.green {
-  background-color: green;
+/* Track */
+::-webkit-scrollbar-track {
+  background: #888;
+  border-radius: 5px;
 }
 
-.red {
-  background-color: red;
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 5px;
 }
 
-.purple {
-  background-color: purple;
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
-

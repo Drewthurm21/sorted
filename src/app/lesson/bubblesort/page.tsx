@@ -4,12 +4,12 @@ const BubbleSortArticle: React.FC = () => {
   const letters = ["a", "b", "c", "d"];
 
   return (
-    <div className="max-w-3xl my-12 mx-auto p-6 h-full">
+    <div className="max-w-3xl my-12 mx-auto p-6 h-full overflow-scroll">
       <h1 className="text-4xl font-bold mb-4">
         Understanding Bubble Sort in JavaScript
       </h1>
 
-      <h2 className="text-2xl font-bold mt-8">The overview</h2>
+      <h2 className="text-3xl font-bold mt-8">The overview</h2>
       <p className="text-lg leading-relaxed mb-6">
         Bubble Sort is a simple and elementary sorting algorithm used for
         sorting arrays. At a high level, Bubble Sort works by comparing adjacent
@@ -36,7 +36,7 @@ const BubbleSortArticle: React.FC = () => {
 
       <h2 className="text-2xl font-bold mt-8">Example walkthrough</h2>
 
-      <p className="text-md leading-relaxed mb-6">
+      <p className="text-lg leading-relaxed mb-6">
         Bubble Sort uses nested loops, so in this example each pass will
         represent a single iteration through the outer loop, and each step
         listed in the pass will represent comparisons made in the inner loop.
@@ -97,7 +97,7 @@ const BubbleSortArticle: React.FC = () => {
       <div className="space-y-3 my-6">
         {bubbleSortSteps.map((step, index) => (
           <div key={index}>
-            <div className="text-md font-semibold">
+            <div className="text-lg font-semibold">
               {`${index + 1}. ${step.title}`}
             </div>
             {step.steps && (
@@ -116,7 +116,7 @@ const BubbleSortArticle: React.FC = () => {
 
       <h2 className="text-2xl font-bold mb-4">Code Walkthrough</h2>
 
-      <p className="text-lg leading-relaxed mb-6">
+      <p className="text-md leading-relaxed mb-6">
         Now that we have our plan written, let&apos;s write some code!
       </p>
 
