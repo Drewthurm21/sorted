@@ -67,7 +67,7 @@ type NavbarItemProps = {
   icon: ReactElement;
   label: String;
   baseUrl: String;
-  disabled: Boolean;
+  disabled: boolean;
 };
 
 const btnHover = `hover:scale-105 hover:translate-y-1 hover:opacity-100 transition-all`;
