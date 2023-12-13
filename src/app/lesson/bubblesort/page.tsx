@@ -29,9 +29,9 @@ const BubbleSortArticle: React.FC = () => {
         wrong order, you swap them. You continue this process until you reach
         the end of the list. At this point you know that at least one element,
         the last element in the list, is in its correct position. Furthermore,
-        some other elements may have 'bubbled' up to their correct positions as
-        well. You can start back at the beginning of the list and repeat this
-        process until the entire list is sorted.
+        some other elements may have &apos;bubbled&apos; up to their correct
+        positions as well. You can start back at the beginning of the list and
+        repeat this process until the entire list is sorted.
       </p>
 
       <h2 className="text-2xl font-bold mt-8">Example walkthrough</h2>
@@ -40,8 +40,8 @@ const BubbleSortArticle: React.FC = () => {
         Bubble Sort uses nested loops, so in this example each pass will
         represent a single iteration through the outer loop, and each step
         listed in the pass will represent comparisons made in the inner loop.
-        Let's walk through an example of how the algorithm would work if we were
-        to use it on the following array: [7, 2, 9, 1, 5]
+        Let&apos;s walk through an example of how the algorithm would work if we
+        were to use it on the following array: [7, 2, 9, 1, 5]
       </p>
       <p></p>
       <div className="space-y-4">
@@ -117,13 +117,13 @@ const BubbleSortArticle: React.FC = () => {
       <h2 className="text-2xl font-bold mb-4">Code Walkthrough</h2>
 
       <p className="text-lg leading-relaxed mb-6">
-        Now that we have our plan written, let's write some code!
+        Now that we have our plan written, let&apos;s write some code!
       </p>
 
       <pre className="bg-gray-50 bg-opacity-10 p-4 rounded">
         {`
     function bubbleSort(arr) {
-        // Set a variable so we don't have to call .length on each iteration
+        // Set a variable so we don&apos;t have to call .length on each iteration
         const n = arr.length;
 
         // Create a flag to track whether any swaps occur in the inner loop
@@ -168,9 +168,9 @@ const BubbleSortArticle: React.FC = () => {
 
       <h2 className="text-2xl font-bold mt-8">Conclusion</h2>
       <p className="text-lg leading-relaxed">
-        In conclusion, while Bubble Sort is a simple algorithm, it's not the
-        most efficient for large datasets. Understanding its inner workings can
-        provide valuable insights into the basics of sorting algorithms.
+        In conclusion, while Bubble Sort is a simple algorithm, it&apos;s not
+        the most efficient for large datasets. Understanding its inner workings
+        can provide valuable insights into the basics of sorting algorithms.
       </p>
     </div>
   );

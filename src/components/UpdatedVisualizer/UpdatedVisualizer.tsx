@@ -25,7 +25,7 @@ export const UpdatedVisualizer = () => {
       if (animationFramesRef.current.length)
         swapColumns(...animationFramesRef.current.pop());
     }, ANIMATION_SPEED * 1000);
-  }, [animationFramesRef.current]);
+  }, []);
 
   const swapColumns = (...pos: number[]) => {
     let [a, b] = pos;
