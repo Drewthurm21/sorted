@@ -2,7 +2,6 @@
 
 import React from "react";
 import { UpdatedVisualizer } from "@/components/UpdatedVisualizer/UpdatedVisualizer";
-import { motion } from "framer-motion";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 

@@ -6,7 +6,7 @@ import { SingleArrayColumn } from "./SingleArrayColumn";
 import { GlowingButton } from "../GlowingButton";
 import { generateNewListData, sortingAlgos } from "@/utilities";
 
-const ANIMATION_SPEED = 0.5;
+const ANIMATION_SPEED = 0.75;
 const LIST_LENGTH = 10;
 
 export const UpdatedVisualizer = () => {

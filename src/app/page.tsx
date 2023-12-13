@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 
 export default function BouncyCardsFeatures() {
   return (
-    <main className="mx-auto max-w-7xl px-4 py-12 text-slate-800 bg-slate-800 w-full">
+    <main className="mx-auto max-w-7xl px-4 py-12 text-slate-400 bg-slate-800 w-full">
       <div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end md:px-8">
         <h2 className="max-w-lg text-4xl font-bold md:text-5xl">
-          Grow faster with our
-          <span className="text-slate-400"> all in one solution</span>
+          Learn the foundations of {"\n"}
+          <span className="text-slate-400">Sorting</span>
         </h2>
       </div>
       <div className="mb-4 grid grid-cols-12 gap-4">

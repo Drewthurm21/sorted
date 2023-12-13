@@ -27,7 +27,7 @@ function Navbar() {
   }, [blinker]);
 
   return (
-    <div className="flex h-full justify-between">
+    <div className="flex h-full justify-between border-b border-white border-dotted">
       <Link href={"/"}>
         <div className="flex w-60 text-white p-6 text-bold text-2xl">
           Sorted{blinker ? "_" : ""}
@@ -45,17 +45,17 @@ function Navbar() {
 const navbarItems = [
   {
     icon: <GiBubbles />,
-    baseUrl: "bubbleSort",
+    baseUrl: "bubblesort",
     label: "Bubble Sort",
   },
   {
     icon: <AiOutlineMergeCells />,
-    baseUrl: "merge",
+    baseUrl: "mergesort",
     label: "Merge Sort",
   },
   {
     icon: <AiOutlineInsertRowRight />,
-    baseUrl: "insertion",
+    baseUrl: "insertionsort",
     label: "Insertion Sort",
   },
 ];

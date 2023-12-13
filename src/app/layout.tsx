@@ -20,12 +20,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} overflow-hidden`}>
         <NavbarWrapper />
-        <div className="h-screen">
+        <div className="h-screen overflow-y-scroll">
           <div className="flex mt-20">
             <SidebarWrapper />
-            <div className="bg-slate-800 border-white border-dotted border-2 w-full">
-              {children}
-            </div>
+            <div className="bg-slate-800 w-full">{children}</div>
           </div>
         </div>
       </body>

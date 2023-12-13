@@ -10,7 +10,7 @@ export default function SidebarWrapper() {
   const [animationSpeed, setAnimationSpeed] = useState<number>(50);
 
   return (
-    <div className="flex flex-col gap-12 h-screen w-44 items-center bg-slate-700">
+    <div className="flex flex-col gap-12 h-100% w-44 items-center bg-slate-700">
       <div className="flex flex-col w-full h-40 justify-center items-center">
         <VscGraph className="w-full h-[48px]" />
         <div className="flex w-full justify-center">List Options</div>
