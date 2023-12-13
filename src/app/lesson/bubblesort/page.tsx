@@ -117,7 +117,7 @@ const BubbleSortArticle: React.FC = () => {
       <h2 className="text-2xl font-bold mb-4">Code Walkthrough</h2>
 
       <p className="text-lg leading-relaxed mb-6">
-        Okay so we have a plan. Let's write some code!
+        Now that we have our plan written, let's write some code!
       </p>
 
       <pre className="bg-gray-50 bg-opacity-10 p-4 rounded">
@@ -155,23 +155,18 @@ const BubbleSortArticle: React.FC = () => {
   `}
       </pre>
 
-      <h2 className="text-2xl font-bold mt-8">Time Complexity</h2>
+      <h2 className="text-2xl font-bold mt-8">Time & Space Complexity</h2>
 
       <p className="text-lg leading-relaxed mb-6">
         The time complexity of Bubble Sort is O(n^2) in the worst and average
         cases. This is because, in each pass, it compares and swaps adjacent
-        elements, resulting in a nested loop structure.
+        elements, resulting in a nested loop structure. The space complexity of
+        Bubble Sort is O(1), indicating that the algorithm uses a constant
+        amount of extra space. This is because Bubble Sort only requires a
+        constant amount of additional memory for variables like swapped and i.
       </p>
 
-      <h2 className="text-2xl font-bold mt-8">Space Complexity</h2>
-
-      <p className="text-lg leading-relaxed mb-6">
-        The space complexity of Bubble Sort is O(1), indicating that the
-        algorithm uses a constant amount of extra space. This is because Bubble
-        Sort only requires a constant amount of additional memory for variables
-        like swapped and i.
-      </p>
-
+      <h2 className="text-2xl font-bold mt-8">Conclusion</h2>
       <p className="text-lg leading-relaxed">
         In conclusion, while Bubble Sort is a simple algorithm, it's not the
         most efficient for large datasets. Understanding its inner workings can

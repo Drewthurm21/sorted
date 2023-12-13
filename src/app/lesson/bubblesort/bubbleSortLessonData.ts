@@ -61,7 +61,7 @@ export const walkthroughSteps = [
       "Compare 9 and 1 (swap)",
       "Compare 9 and 5 (swap)",
     ],
-    conclusion: ["We have made a few swaps in the first pass, and our array now looks like this: [2, 5, 1, 5, 9]", "Notice how by swapping adjacent elements we've successfully 'bubbled' the largest number up to its proper place in the array. Let's repeat the process."]
+    conclusion: ["We have made a few swaps in the first pass, and our array now looks like this: [2, 7, 1, 5, 9]", "Notice how by swapping adjacent elements we've successfully 'bubbled' the largest number up to its proper place in the array. Let's repeat the process."]
   },
   {
     description: "Pass 2:",

@@ -22,7 +22,6 @@ export default function RootLayout({
         <NavbarWrapper />
         <div className="h-screen overflow-y-scroll">
           <div className="flex mt-20">
-            <SidebarWrapper />
             <div className="bg-slate-800 w-full">{children}</div>
           </div>
         </div>

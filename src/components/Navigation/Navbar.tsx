@@ -47,16 +47,19 @@ const navbarItems = [
     icon: <GiBubbles />,
     baseUrl: "bubblesort",
     label: "Bubble Sort",
+    disabled: false,
   },
   {
     icon: <AiOutlineMergeCells />,
     baseUrl: "mergesort",
     label: "Merge Sort",
+    disabled: true,
   },
   {
     icon: <AiOutlineInsertRowRight />,
     baseUrl: "insertionsort",
     label: "Insertion Sort",
+    disabled: true,
   },
 ];
 
@@ -64,14 +67,16 @@ type NavbarItemProps = {
   icon: ReactElement;
   label: String;
   baseUrl: String;
+  disabled: Boolean;
 };
 
 const btnHover = `hover:scale-105 hover:translate-y-1 hover:opacity-100 transition-all`;
 
-function NavbarItem({ icon, label, baseUrl }: NavbarItemProps) {
+function NavbarItem({ icon, label, baseUrl, disabled }: NavbarItemProps) {
   return (
     <Menu as="div" className="relative inline-block">
       <Menu.Button
+        disabled={disabled}
         className={`${btnHover} inline-flex h-full w-full rounded-md flex-col justify-center items-center text-white opacity-70`}
       >
         {icon}
