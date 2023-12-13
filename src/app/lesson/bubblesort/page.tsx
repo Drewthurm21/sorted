@@ -89,7 +89,7 @@ const BubbleSortArticle: React.FC = () => {
 
       <h2 className="text-2xl font-bold mt-8">The strategy</h2>
       <p className="text-md leading-relaxed">
-        Now that we have a pretty good idea how the plan works, lets think about
+        Now that we have a pretty good idea of how it works, lets think about
         how we would execute it in code. Here is what our pseudocode might look
         like...
       </p>
@@ -123,7 +123,7 @@ const BubbleSortArticle: React.FC = () => {
       <pre className="bg-gray-50 bg-opacity-10 p-4 rounded">
         {`
     function bubbleSort(arr) {
-        // Set a variable so we don&apos;t have to call .length on each iteration
+        // Set a variable so we don't have to call .length on each iteration
         const n = arr.length;
 
         // Create a flag to track whether any swaps occur in the inner loop

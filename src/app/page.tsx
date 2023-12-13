@@ -2,6 +2,7 @@
 
 import React, { ReactNode } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function BouncyCardsFeatures() {
   return (
@@ -13,14 +14,16 @@ export default function BouncyCardsFeatures() {
         </h2>
       </div>
       <div className="mb-4 grid grid-cols-12 gap-4">
-        <BounceCard className="col-span-12 md:col-span-4">
-          <CardTitle>Bubble Sort</CardTitle>
-          <div className="absolute bottom-0 left-4 right-4 top-32 translate-y-8 rounded-t-2xl bg-gradient-to-br from-violet-400 to-indigo-400 p-4 transition-transform duration-[250ms] group-hover:translate-y-4 group-hover:rotate-[2deg]">
-            <span className="block text-center font-semibold text-indigo-50">
-              Check out the article here!
-            </span>
-          </div>
-        </BounceCard>
+        <Link className="col-span-12 md:col-span-4" href="/lesson/bubblesort">
+          <BounceCard className="">
+            <CardTitle>Bubble Sort</CardTitle>
+            <div className="absolute bottom-0 left-4 right-4 top-32 translate-y-8 rounded-t-2xl bg-gradient-to-br from-violet-400 to-indigo-400 p-4 transition-transform duration-[250ms] group-hover:translate-y-4 group-hover:rotate-[2deg]">
+              <span className="block text-center font-semibold text-indigo-50">
+                Check out the article here!
+              </span>
+            </div>
+          </BounceCard>
+        </Link>
         <BounceCard className="col-span-12 md:col-span-8">
           <CardTitle>Insertion Sort</CardTitle>
           <div className="absolute bottom-0 left-4 right-4 top-32 translate-y-8 rounded-t-2xl bg-gradient-to-br from-amber-400 to-orange-400 p-4 transition-transform duration-[250ms] group-hover:translate-y-4 group-hover:rotate-[2deg]">
