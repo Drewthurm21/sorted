@@ -25,9 +25,16 @@ export const UpdatedVisualizer = () => {
       if (animationFramesRef.current.length)
         swapColumns(...animationFramesRef.current.pop());
     }, ANIMATION_SPEED * 1000);
-  }, []);
+  }, [animationFramesRef.current]);
+
+  const beginSorting = () => {
+    if (sortingInProgress) return;
+    animationFramesRef.current = sortingAlgos["bubbleSort"]([...arrayValues]);
+    setSortingInProgress(true);
+  };
 
   const swapColumns = (...pos: number[]) => {
+    console.log("swap columns", pos, arrayValues);
     let [a, b] = pos;
     [arrayValues[a], arrayValues[b]] = [arrayValues[b], arrayValues[a]];
     setColumns(createColumns(arrayValues));
@@ -50,10 +57,19 @@ export const UpdatedVisualizer = () => {
     setColumns(createColumns(initialValues));
   };
 
+  const printer = () => {
+    console.log({
+      animationFramesRef: animationFramesRef.current,
+      initialValues,
+      arrayValues,
+      columns,
+      sortingInProgress,
+    });
+  };
+
   useEffect(() => {
     if (!sortingInProgress) return;
-    if (!animationFramesRef.current.length)
-      animationFramesRef.current = sortingAlgos["bubbleSort"](arrayValues);
+
     animateFrames();
     return () => clearTimeout(timeoutRef.current);
   }, [animateFrames, arrayValues, columns, sortingInProgress]);
@@ -64,10 +80,7 @@ export const UpdatedVisualizer = () => {
         <LayoutGroup>{columns}</LayoutGroup>
       </div>
       <motion.div className="flex w-1/2 h-full justify-evenly pt-12">
-        <GlowingButton
-          buttonText="Sort!"
-          handleClick={() => setSortingInProgress(true)}
-        />
+        <GlowingButton buttonText="Sort!" handleClick={beginSorting} />
         <GlowingButton
           buttonText="Pause"
           handleClick={() => setSortingInProgress(false)}
@@ -80,12 +93,14 @@ export const UpdatedVisualizer = () => {
           buttonText="New List"
           handleClick={() => generateNewColumns()}
         />
+        <GlowingButton buttonText="print state" handleClick={printer} />
       </motion.div>
     </div>
   );
 };
 
 const createColumns = (array: { id: number; value: number }[]) => {
+  console.log("create columns", array);
   return array.map((col) => (
     <SingleArrayColumn key={col.id} value={col.value} speed={ANIMATION_SPEED} />
   ));
