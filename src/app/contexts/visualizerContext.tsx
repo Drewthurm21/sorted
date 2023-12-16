@@ -25,9 +25,9 @@ export default function VisualizerContextProvider({
   children,
 }: VisualizerContextProviderProps) {
   const [listSize, setListSize] = useState<number>(15);
-  const [animationSpeed, setAnimationSpeed] = useState<number>(0.5);
+  const [animationSpeed, setAnimationSpeed] = useState<number>(50);
   const [columnColor, setColumnColor] = useState<string>("bg-slate-700");
-  const [labelColor, setLabelColor] = useState<string>("text-emerald-500");
+  const [labelColor, setLabelColor] = useState<string>("text-emerald-400");
 
   return (
     <VisualizerContext.Provider

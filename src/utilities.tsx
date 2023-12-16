@@ -38,5 +38,5 @@ export const generateBubbleSortSteps = (array: any[]) => {
 };
 
 export const sortingAlgos = {
-  bubbleSort: generateBubbleSortSteps,
+  bubblesort: generateBubbleSortSteps,
 };

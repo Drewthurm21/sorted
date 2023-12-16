@@ -59,7 +59,7 @@ const BubbleSortArticle: React.FC = () => {
                     <div
                       key={i}
                       className={`border mb-2 p-2 rounded ${
-                        value > 9 ? "border-emerald-500" : "border-gray-500"
+                        value > 9 ? "border-emerald-400" : "border-gray-500"
                       }`}
                     >
                       {value > 9 ? value / 10 : value}
