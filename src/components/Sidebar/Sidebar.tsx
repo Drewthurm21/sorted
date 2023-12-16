@@ -1,13 +1,12 @@
 "use client";
-
-import { useState } from "react";
+import { useVisualizerContext } from "@/app/contexts/visualizerContext";
 import { VscGraph } from "react-icons/vsc";
 import { CgSize } from "react-icons/cg";
 import { RiSpeedLine } from "react-icons/ri";
 
 export default function SidebarWrapper() {
-  const [listSize, setListSize] = useState<number>(15);
-  const [animationSpeed, setAnimationSpeed] = useState<number>(50);
+  const { listSize, setListSize, animationSpeed, setAnimationSpeed } =
+    useVisualizerContext();
 
   return (
     <div className="flex flex-col gap-12 h-screen w-44 items-center bg-slate-700">
@@ -20,6 +19,7 @@ export default function SidebarWrapper() {
         <div className="flex w-full justify-center">Size</div>
         <span>{listSize}</span>
         <input
+          className="range accent-emerald-400"
           type="range"
           min="5"
           max="30"
@@ -34,7 +34,7 @@ export default function SidebarWrapper() {
         <span>{animationSpeed}</span>
         <input
           type="range"
-          min="0"
+          min="10"
           max="100"
           step="10"
           value={animationSpeed}

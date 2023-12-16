@@ -1,22 +1,64 @@
 "use client";
-
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useVisualizerContext } from "@/app/contexts/visualizerContext";
 import { motion, LayoutGroup } from "framer-motion";
 import { SingleArrayColumn } from "./SingleArrayColumn";
 import { GlowingButton } from "../GlowingButton";
 import { generateNewListData, sortingAlgos } from "@/utilities";
 
-const ANIMATION_SPEED = 0.5;
-const LIST_LENGTH = 10;
+const MIN_TIMEOUT_DELAY = 50; // Minimum timeout delay in milliseconds
+const MAX_TIMEOUT_DELAY = 1500; // Maximum timeout delay in milliseconds
+const MIN_ANIMATION_DURATION = 0.1; // Minimum animation duration in seconds
+const MAX_ANIMATION_DURATION = 1.2; // Maximum animation duration in seconds
+
+const scaleSpeedValue = (
+  value: number,
+  sliderMin: number,
+  sliderMax: number,
+  targetMin: number,
+  targetMax: number
+): number => {
+  // Convert & scale the animation speed slider value to values within our target ranges
+  return (
+    ((sliderMax - value) * (targetMax - targetMin)) / (sliderMax - sliderMin) +
+    targetMin
+  );
+};
+
+const createColumns = (
+  array: { id: number; value: number }[],
+  animationSpeed: number
+) => {
+  return array.map((col) => (
+    <SingleArrayColumn key={col.id} value={col.value} speed={animationSpeed} />
+  ));
+};
 
 export const UpdatedVisualizer = () => {
+  const { animationSpeed, listSize } = useVisualizerContext();
+  const scaledTimeoutDelay = scaleSpeedValue(
+    animationSpeed,
+    10,
+    100,
+    MIN_TIMEOUT_DELAY,
+    MAX_TIMEOUT_DELAY
+  );
+  const scaledAnimationSpeed = scaleSpeedValue(
+    animationSpeed,
+    10,
+    100,
+    MIN_ANIMATION_DURATION,
+    MAX_ANIMATION_DURATION
+  );
+
   const [initialValues, setInitialValues] = useState(
-    generateNewListData(LIST_LENGTH)
+    generateNewListData(listSize)
   );
   const [arrayValues, setArrayValues] = useState([...initialValues]);
-  const [columns, setColumns] = useState(createColumns(arrayValues));
+  const [columns, setColumns] = useState(
+    createColumns(arrayValues, scaledAnimationSpeed)
+  );
   const [sortingInProgress, setSortingInProgress] = useState(false);
-
   const timeoutRef = useRef<any>(null);
   const animationFramesRef = useRef<any>([]);
 
@@ -24,22 +66,28 @@ export const UpdatedVisualizer = () => {
     timeoutRef.current = setTimeout(() => {
       if (animationFramesRef.current.length)
         swapColumns(...animationFramesRef.current.pop());
-    }, ANIMATION_SPEED * 1000);
-  }, []);
+    }, scaledTimeoutDelay);
+  }, [animationFramesRef.current]);
+
+  const beginSorting = () => {
+    if (sortingInProgress) return;
+    animationFramesRef.current = sortingAlgos["bubblesort"]([...arrayValues]);
+    setSortingInProgress(true);
+  };
 
   const swapColumns = (...pos: number[]) => {
     let [a, b] = pos;
     [arrayValues[a], arrayValues[b]] = [arrayValues[b], arrayValues[a]];
-    setColumns(createColumns(arrayValues));
+    setColumns(createColumns(arrayValues, scaledAnimationSpeed));
   };
 
   const generateNewColumns = () => {
-    let newListValues = generateNewListData(LIST_LENGTH);
+    let newListValues = generateNewListData(listSize);
     animationFramesRef.current = [];
     setSortingInProgress(false);
     setInitialValues(newListValues);
     setArrayValues([...newListValues]);
-    setColumns(createColumns(newListValues));
+    setColumns(createColumns(newListValues, scaledAnimationSpeed));
   };
 
   const handleReset = () => {
@@ -47,13 +95,23 @@ export const UpdatedVisualizer = () => {
     animationFramesRef.current = [];
     setSortingInProgress(false);
     setArrayValues([...initialValues]);
-    setColumns(createColumns(initialValues));
+    setColumns(createColumns(initialValues, scaledAnimationSpeed));
+  };
+
+  const printState = () => {
+    console.log({
+      animationFramesRef: animationFramesRef.current,
+      initialValues,
+      arrayValues,
+      columns,
+      sortingInProgress,
+      timeoutDelay: scaledTimeoutDelay,
+      framerDuration: scaledAnimationSpeed,
+    });
   };
 
   useEffect(() => {
     if (!sortingInProgress) return;
-    if (!animationFramesRef.current.length)
-      animationFramesRef.current = sortingAlgos["bubbleSort"](arrayValues);
     animateFrames();
     return () => clearTimeout(timeoutRef.current);
   }, [animateFrames, arrayValues, columns, sortingInProgress]);
@@ -64,10 +122,7 @@ export const UpdatedVisualizer = () => {
         <LayoutGroup>{columns}</LayoutGroup>
       </div>
       <motion.div className="flex w-1/2 h-full justify-evenly pt-12">
-        <GlowingButton
-          buttonText="Sort!"
-          handleClick={() => setSortingInProgress(true)}
-        />
+        <GlowingButton buttonText="Sort!" handleClick={beginSorting} />
         <GlowingButton
           buttonText="Pause"
           handleClick={() => setSortingInProgress(false)}
@@ -83,10 +138,4 @@ export const UpdatedVisualizer = () => {
       </motion.div>
     </div>
   );
-};
-
-const createColumns = (array: { id: number; value: number }[]) => {
-  return array.map((col) => (
-    <SingleArrayColumn key={col.id} value={col.value} speed={ANIMATION_SPEED} />
-  ));
 };

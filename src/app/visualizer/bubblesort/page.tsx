@@ -5,6 +5,7 @@ import { UpdatedVisualizer } from "@/components/UpdatedVisualizer/UpdatedVisuali
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import SidebarWrapper from "@/components/Sidebar/Sidebar";
+import VisualizerContextProvider from "@/app/contexts/visualizerContext";
 
 const Visualizer: NextPage = () => {
   return (
@@ -16,8 +17,10 @@ const Visualizer: NextPage = () => {
       <div className="flex items-center justify-center min-h-screen w-full">
         <div className="flex md:flex-row items-center justify-center w-full">
           <div className="flex items-center justify-center w-full md:w-75%">
-            <SidebarWrapper />
-            <UpdatedVisualizer />
+            <VisualizerContextProvider>
+              <SidebarWrapper />
+              <UpdatedVisualizer />
+            </VisualizerContextProvider>
           </div>
         </div>
       </div>
