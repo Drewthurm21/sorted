@@ -4,7 +4,7 @@
 
 - **Purpose:**
 
-  - The primary purpose of the "algoVIs" project is to provide a platform for mastering and learning about commonly used algorithms for sorting, array manipulation, tree and graph traversal, and linked list operations. Additionally, the project aims to build a pathfinding algorithm visualizer in the future.
+  - The primary purpose of the "algoVIs" project is to provide a platform for learning about commonly used algorithms in sorting. Additionally the project aims to build, array manipulation, tree and graph traversal, and linked list operations, a pathfinding algorithm visualizer in the future.
 
 - **Target Audience:**
   - The target audience includes computer science students, coding bootcamp participants, and anyone interested in learning and mastering algorithms. The project will also serve as a valuable addition to your professional portfolio.
