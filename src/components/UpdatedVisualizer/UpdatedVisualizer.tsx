@@ -9,7 +9,7 @@ import { generateNewListData, sortingAlgos } from "@/utilities";
 const MIN_TIMEOUT_DELAY = 50; // Minimum timeout delay in milliseconds
 const MAX_TIMEOUT_DELAY = 1500; // Maximum timeout delay in milliseconds
 const MIN_ANIMATION_DURATION = 0.1; // Minimum animation duration in seconds
-const MAX_ANIMATION_DURATION = 1.2; // Maximum animation duration in seconds
+const MAX_ANIMATION_DURATION = 0.75; // Maximum animation duration in seconds
 
 const scaleSpeedValue = (
   value: number,
@@ -62,18 +62,18 @@ export const UpdatedVisualizer = () => {
   const timeoutRef = useRef<any>(null);
   const animationFramesRef = useRef<any>([]);
 
+  const beginSorting = () => {
+    if (sortingInProgress) return;
+    animationFramesRef.current = sortingAlgos["bubblesort"]([...arrayValues]);
+    setSortingInProgress(true);
+  };
+
   const animateFrames = useCallback(() => {
     timeoutRef.current = setTimeout(() => {
       if (animationFramesRef.current.length)
         swapColumns(...animationFramesRef.current.pop());
     }, scaledTimeoutDelay);
   }, [animationFramesRef.current]);
-
-  const beginSorting = () => {
-    if (sortingInProgress) return;
-    animationFramesRef.current = sortingAlgos["bubblesort"]([...arrayValues]);
-    setSortingInProgress(true);
-  };
 
   const swapColumns = (...pos: number[]) => {
     let [a, b] = pos;
@@ -96,18 +96,6 @@ export const UpdatedVisualizer = () => {
     setSortingInProgress(false);
     setArrayValues([...initialValues]);
     setColumns(createColumns(initialValues, scaledAnimationSpeed));
-  };
-
-  const printState = () => {
-    console.log({
-      animationFramesRef: animationFramesRef.current,
-      initialValues,
-      arrayValues,
-      columns,
-      sortingInProgress,
-      timeoutDelay: scaledTimeoutDelay,
-      framerDuration: scaledAnimationSpeed,
-    });
   };
 
   useEffect(() => {

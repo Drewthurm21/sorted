@@ -33,6 +33,7 @@ export default function SidebarWrapper() {
         <div className="flex w-full justify-center">Speed</div>
         <span>{animationSpeed}</span>
         <input
+          className="range accent-emerald-400"
           type="range"
           min="10"
           max="100"
@@ -41,7 +42,6 @@ export default function SidebarWrapper() {
           onChange={(e) => setAnimationSpeed(+e.target.value)}
         />
       </div>
-      <div className="flex w-full justify-center items-center">Update List</div>
     </div>
   );
 }
