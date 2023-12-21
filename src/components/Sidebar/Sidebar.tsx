@@ -34,7 +34,7 @@ export default function SidebarWrapper() {
         <span>{animationSpeed}</span>
         <input
           type="range"
-          min="0"
+          min="10"
           max="100"
           step="10"
           value={animationSpeed}
