@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { bubbleSortSteps, walkthroughSteps } from "./bubbleSortLessonData";
+import { Walkthrough } from "@/components/Walkthrough/Walkthrough";
 
 const BubbleSortArticle: React.FC = () => {
   const letters = ["a", "b", "c", "d"];
@@ -9,7 +10,6 @@ const BubbleSortArticle: React.FC = () => {
       <h1 className="text-4xl font-bold mb-4">
         Understanding Bubble Sort in JavaScript
       </h1>
-
       <h2 className="text-3xl font-bold mt-8">The overview</h2>
       <p className="text-lg leading-relaxed mb-6">
         Bubble Sort is a simple and elementary sorting algorithm used for
@@ -20,9 +20,7 @@ const BubbleSortArticle: React.FC = () => {
         is often used for educational purposes to introduce fundamental concepts
         of sorting algorithms.
       </p>
-
       <h2 className="text-2xl font-bold mt-8">The concept</h2>
-
       <p className="text-lg leading-relaxed mb-2">
         Imagine you have a list of numbers that you wanted to sort in ascending
         order. You could sort it by starting at the beginning of the list and
@@ -34,9 +32,7 @@ const BubbleSortArticle: React.FC = () => {
         positions as well. You can start back at the beginning of the list and
         repeat this process until the entire list is sorted.
       </p>
-
       <h2 className="text-2xl font-bold mt-8">Example walkthrough</h2>
-
       <p className="text-lg leading-relaxed mb-6">
         Bubble Sort uses nested loops, so in this example each pass will
         represent a single iteration through the outer loop, and each step
@@ -45,56 +41,13 @@ const BubbleSortArticle: React.FC = () => {
         were to use it on the following array: [7, 2, 9, 1, 5]
       </p>
       <p></p>
-      <div className="space-y-4">
-        {walkthroughSteps.map((step, index) => (
-          <div key={index} className="mb-4">
-            {step.steps && (
-              <div>
-                <p className="text-lg font-semibold">
-                  <strong>{step.description}</strong>
-                </p>
-                <p className="text-sm mb-2">Array state:</p>
-                <div className="flex space-x-4">
-                  {step.array.map((value, i) => (
-                    <div
-                      key={i}
-                      className={`border mb-2 p-2 rounded ${
-                        value > 9 ? "border-emerald-400" : "border-gray-500"
-                      }`}
-                    >
-                      {value > 9 ? value / 10 : value}
-                    </div>
-                  ))}
-                </div>
-                <ul>
-                  {" "}
-                  Steps:
-                  {step.steps.map((step, subIndex) => (
-                    <li key={subIndex} className="text-sm">
-                      {step}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            <div className="my-2">
-              {step.conclusion.map((conclusion, subIndex) => (
-                <p key={subIndex} className="text-sm">
-                  {conclusion}
-                </p>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-
+      <Walkthrough walkthroughSteps={walkthroughSteps} />
       <h2 className="text-2xl font-bold mt-8">The strategy</h2>
       <p className="text-md leading-relaxed">
         Now that we have a pretty good idea of how it works, lets think about
         how we would execute it in code. Here is what our pseudocode might look
         like...
       </p>
-
       <div className="space-y-3 my-6">
         {bubbleSortSteps.map((step, index) => (
           <div key={index}>
@@ -114,7 +67,6 @@ const BubbleSortArticle: React.FC = () => {
           </div>
         ))}
       </div>
-
       <h2 className="text-2xl font-bold mb-4">Code Walkthrough</h2>
 
       <p className="text-md leading-relaxed mb-6">

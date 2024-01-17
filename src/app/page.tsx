@@ -28,7 +28,7 @@ export default function BouncyCardsFeatures() {
           <CardTitle>Insertion Sort</CardTitle>
           <div className="absolute bottom-0 left-4 right-4 top-32 translate-y-8 rounded-t-2xl bg-gradient-to-br from-amber-400 to-orange-400 p-4 transition-transform duration-[250ms] group-hover:translate-y-4 group-hover:rotate-[2deg]">
             <span className="block text-center font-semibold text-orange-50">
-              Check out the article here!
+              Insertion Sort coming this week!
             </span>
           </div>
         </BounceCard>
