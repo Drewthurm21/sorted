@@ -59,7 +59,7 @@ const navbarItems = [
     icon: <AiOutlineInsertRowRight />,
     baseUrl: "insertionsort",
     label: "Insertion Sort",
-    disabled: false,
+    disabled: true,
   },
 ];
 

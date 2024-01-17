@@ -38,7 +38,7 @@ export default function BouncyCardsFeatures() {
           <CardTitle>Merge Sort</CardTitle>
           <div className="absolute bottom-0 left-4 right-4 top-32 translate-y-8 rounded-t-2xl bg-gradient-to-br from-green-400 to-emerald-400 p-4 transition-transform duration-[250ms] group-hover:translate-y-4 group-hover:rotate-[2deg]">
             <span className="block text-center font-semibold text-emerald-50">
-              Merge Sort coming soon!
+              Recursion & sorting & merging, oh my! Merge Sort coming soon!
             </span>
           </div>
         </BounceCard>
@@ -46,7 +46,7 @@ export default function BouncyCardsFeatures() {
           <CardTitle>Big O</CardTitle>
           <div className="absolute bottom-0 left-4 right-4 top-32 translate-y-8 rounded-t-2xl bg-gradient-to-br from-pink-400 to-red-400 p-4 transition-transform duration-[250ms] group-hover:translate-y-4 group-hover:rotate-[2deg]">
             <span className="block text-center font-semibold text-red-50">
-              How fast is this, really?
+              How fast is this, really? We'll explore Big O notation soon!
             </span>
           </div>
         </BounceCard>

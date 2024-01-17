@@ -126,9 +126,11 @@ const BubbleSortArticle: React.FC = () => {
         can provide valuable insights into the basics of sorting algorithms.
       </p>
 
-      <div className="flex flex-col items-center">
+      <div className="flex mb-40 flex-col items-center">
         <p className="text-lg leading-relaxed">Check it out in the</p>
-        <Link href="/visualizer/bubblesort">visualizer!</Link>
+        <Link href="/visualizer/bubblesort">
+          <div className="text-3xl">Visualizer!</div>
+        </Link>
       </div>
     </div>
   );
