@@ -2,7 +2,7 @@
 import { useEffect, useState, ReactElement, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { CgChevronRight } from "react-icons/cg";
-import { GiBubbles } from "react-icons/gi";
+import { GiBubbles, GiNotebook } from "react-icons/gi";
 import { AiOutlineMergeCells, AiOutlineInsertRowRight } from "react-icons/ai";
 import Link from "next/link";
 
@@ -33,10 +33,23 @@ function Navbar() {
           Sorted{blinker ? "_" : ""}
         </div>
       </Link>
-      <div className="flex w-1/2 mr-20 justify-evenly items-center">
+      <div className="flex w-1/2 mr-20 justify-end items-center">
         {navbarItems.map((item) => (
           <NavbarItem key={item.label} {...item} />
         ))}
+        <Link
+          href={"https://github.com/Drewthurm21/sorted/wiki/Blog"}
+          target={"_blank"}
+        >
+          <Menu as="div" className="relative inline-block">
+            <Menu.Button
+              className={`${btnHover} inline-flex h-full w-full rounded-md flex-col justify-center items-center text-white opacity-70`}
+            >
+              <GiNotebook />
+              Dev Notes
+            </Menu.Button>
+          </Menu>
+        </Link>
       </div>
     </div>
   );
@@ -77,7 +90,7 @@ function NavbarItem({ icon, label, baseUrl, disabled }: NavbarItemProps) {
     <Menu as="div" className="relative inline-block">
       <Menu.Button
         disabled={disabled}
-        className={`${btnHover} inline-flex h-full w-full rounded-md flex-col justify-center items-center text-white opacity-70`}
+        className={`${btnHover} inline-flex h-full w-full rounded-md flex-col justify-center items-center text-white opacity-70 mr-12`}
       >
         {icon}
         {label}
