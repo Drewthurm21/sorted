@@ -1,10 +1,11 @@
 "use client";
-import { useEffect, useState, ReactElement, Fragment } from "react";
+import { ReactElement, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { CgChevronRight } from "react-icons/cg";
 import { GiBubbles, GiNotebook } from "react-icons/gi";
 import { AiOutlineMergeCells, AiOutlineInsertRowRight } from "react-icons/ai";
 import Link from "next/link";
+import ShuffleWord from "./ShuffleWord";
 
 export default function NavbarWrapper() {
   return (
@@ -15,22 +16,12 @@ export default function NavbarWrapper() {
 }
 
 function Navbar() {
-  const [blinker, setBlinker] = useState(true); //state to hold the blinking text
-
-  useEffect(() => {
-    //set a timeout that will add or remove the "hidden" class from the span every 500ms
-    let blinkerInterval = setInterval(() => {
-      setBlinker(!blinker);
-    }, 500);
-
-    return () => clearInterval(blinkerInterval);
-  }, [blinker]);
-
   return (
     <div className="flex h-full justify-between border-b border-white border-dotted">
       <Link href={"/"}>
-        <div className="flex w-60 text-white p-6 text-bold text-2xl">
-          Sorted{blinker ? "_" : ""}
+        <div className="flex w-60 h-full text-white p-6 text-bold text-2xl">
+          {/* Sorted{blinker ? "_" : ""} */}
+          <ShuffleWord word={"Sorted_app"} size={24} />
         </div>
       </Link>
       <div className="flex w-1/2 mr-20 justify-end items-center">
